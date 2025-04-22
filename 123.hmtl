@@ -1,0 +1,83 @@
+import time
+
+def slow_print(text):
+    for char in text:
+        print(char, end='', flush=True)
+        time.sleep(0.03)
+    print()
+
+def intro():
+    slow_print("📁 檔案載入中...")
+    time.sleep(1)
+    slow_print("你是舊金山警局的資深偵探，專門負責連環殺人案。")
+    slow_print("現在，你被指派調查一封疑似來自黃道殺手的新信件...")
+    input("\n🔎 按下 Enter 鍵以繼續...")
+
+def riddle_one():
+    slow_print("\n📜 信件內容：")
+    slow_print("『十二星座，九月有雙，一月一尾，尋找我開始的地點。』")
+    answer = input("請輸入你認為的地點：").strip().lower()
+    if "vallejo" in answer:
+        slow_print("✅ 回答正確！黃道殺手的第一起攻擊發生在 Vallejo。")
+        return True
+    else:
+        slow_print("❌ 錯誤。提示：這地點出現在 1968 年的聖誕季節。")
+        return False
+
+def riddle_two():
+    slow_print("\n📜 第二封信出現了：")
+    slow_print("『我的名字藏在字母間，3, 14, 26 的字母連起來，找出我名。』")
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    code = alphabet[2] + alphabet[13] + alphabet[25]  # c, n, z
+    answer = input("請輸入兇手藏的代號（三個字母）：").strip().lower()
+    if answer == code:
+        slow_print("✅ 答對了！CNZ 是他用來混淆警方的假代號之一。")
+        return True
+    else:
+        slow_print("❌ 錯誤，再想想：第 3, 14, 26 個英文字母是？")
+        return False
+
+def riddle_three():
+    slow_print("\n📜 第三封信出現了，一段奇怪的符號：")
+    morse_code = "... --- ..."
+    slow_print(f"摩斯密碼：{morse_code}")
+    slow_print("提示：最經典的求救訊號")
+    answer = input("請輸入解碼後的單字（請用英文）：").strip().lower()
+    if answer == "sos":
+        slow_print("✅ 正確！這是『求救』的訊號，他可能想引導你去一個救援相關的地點。")
+        return True
+    else:
+        slow_print("❌ 不對喔，再回想一下摩斯密碼的經典訊號。")
+        return False
+
+def final_choice():
+    slow_print("\n🕵️‍♂️ 你掌握了三位可能嫌疑犯：")
+    suspects = ["1. 阿瑟·艾倫（Arthur Leigh Allen）", 
+                "2. 詹姆斯·畢倫（James Philin）", 
+                "3. 查爾斯·道森（Charles Dawson）"]
+    for s in suspects:
+        print(s)
+    choice = input("請輸入你認為的嫌疑人編號（1-3）：").strip()
+    if choice == "1":
+        slow_print("✅ 你選擇了阿瑟·艾倫。雖然證據不足，但他是警方懷疑最深的人之一。")
+        slow_print("🌕 你成功阻止了黃道殺手的下一次行動。破案了，幹得好！")
+        return True
+    else:
+        slow_print("❌ 看來你被黃道殺手騙過了。他再次逃脫了，案子仍舊懸而未解...")
+        return False
+
+def main():
+    intro()
+    if not riddle_one():
+        return
+    input("\n👉 按 Enter 鍵進入下一關...")
+    if not riddle_two():
+        return
+    input("\n👉 按 Enter 鍵進入摩斯密碼關卡...")
+    if not riddle_three():
+        return
+    input("\n👉 按 Enter 鍵進行最終選擇...")
+    final_choice()
+
+if __name__ == "__main__":
+    main()
